@@ -134,7 +134,7 @@ class Task
     /**
      * Get author.
      *
-     * @return \AppBundle\Entity\User
+     * @return \App\Entity\User
      */
     public function getAuthor()
     {
