@@ -120,7 +120,7 @@ class Task
     /**
      * Set author.
      *
-     * @param \AppBundle\Entity\User $author
+     * @param \App\Entity\User $author
      *
      * @return Task
      */
