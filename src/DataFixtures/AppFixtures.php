@@ -22,18 +22,20 @@ class AppFixtures extends Fixture
     {
         $user = new User();
         $user->setUsername('test');
-        $password = $this->hasher->hashPassword($user, 'test');
+        $password = $this->hasher->hashPassword($user, 'pass');
         $user->setPassword($password);
         $user->setEmail('test@local.com');
         $user->setRole('ROLE_USER');
+
         $manager->persist($user);
 
         $admin = new User();
         $admin->setUsername('testadmin');
-        $password = $this->hasher->hashPassword($user, 'test');
+        $password = $this->hasher->hashPassword($admin, 'passadmin');
         $admin->setPassword($password);
         $admin->setEmail('testadmin@local.com');
         $admin->setRole('ROLE_ADMIN');
+
         $manager->persist($admin);
 
         for ($i = 1; $i < 5; ++$i) {

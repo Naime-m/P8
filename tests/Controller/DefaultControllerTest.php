@@ -11,28 +11,27 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->findOneByEmail('test@test.local');
+        $testUser = $userRepository->findOneByEmail('test@local.com');
         $client->loginUser($testUser);
         $client->request('GET', '/');
         $this->assertSame(200, $client->getResponse()->getStatusCode());
     }
 
-//     public function testHomepageRedirectIfNoUser()
-//     {
-//         $client = static::createClient();
-//     $client->request('GET', '/');
-//     $this->assertTrue($client->getResponse()->isRedirect());
-//     }
+    public function testHomepageRedirectIfNoUser()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/');
+        $this->assertTrue($client->getResponse()->isRedirect());
+    }
 
-//     public function testHomepageShow()
-//     {
-//         $client = static::createClient(array(), array(
-//             'PHP_AUTH_USER' => 'test',
-//             'PHP_AUTH_PW'   => 'test',
-//         ));
+    public function testHomepageShow()
+    {
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('test@local.com');
+        $client->loginUser($testUser);
+        $crawler = $client->request('GET', '/');
 
-//        $crawler = $client->request('GET', '/');
-
-//        $this->assertGreaterThan(0, $crawler->filter('html:contains("Bienvenue sur Todo List")')->count());
-//     }
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Bienvenue sur Todo List")')->count());
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\App\Controller;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
@@ -9,6 +10,9 @@ class UserControllerTest extends WebTestCase
     public function testLoginPageIsUp()
     {
         $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('test@local.com');
+        $client->loginUser($testUser);
         $client->request('GET', '/login');
         $this->assertSame(200, $client->getResponse()->getStatusCode());
     }
@@ -16,36 +20,39 @@ class UserControllerTest extends WebTestCase
     public function testUserCreatePageIsUp()
     {
         $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('test@local.com');
+        $client->loginUser($testUser);
         $client->request('GET', '/users/create');
         $this->assertSame(200, $client->getResponse()->getStatusCode());
     }
 
     public function testUserListPageIsUp()
     {
-        $client = static::createClient([], [
-        'PHP_AUTH_USER' => 'testadmin',
-        'PHP_AUTH_PW' => 'test',
-    ]);
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('testadmin@local.com');
+        $client->loginUser($testUser);
         $client->request('GET', '/users');
         $this->assertSame(200, $client->getResponse()->getStatusCode());
     }
 
     public function testUserEditIsUp()
     {
-        $client = static::createClient([], [
-        'PHP_AUTH_USER' => 'testadmin',
-        'PHP_AUTH_PW' => 'test',
-    ]);
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('testadmin@local.com');
+        $client->loginUser($testUser);
         $client->request('GET', '/users/1/edit');
         $this->assertSame(200, $client->getResponse()->getStatusCode());
     }
 
     public function testUserCreate()
     {
-        $client = static::createClient([], [
-        'PHP_AUTH_USER' => 'test',
-        'PHP_AUTH_PW' => 'test',
-    ]);
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('test@local.com');
+        $client->loginUser($testUser);
         $crawler = $client->request('GET', '/users/create');
 
         $form = $crawler->selectButton('Ajouter')->form();
