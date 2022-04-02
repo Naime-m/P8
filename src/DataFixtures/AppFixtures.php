@@ -78,6 +78,16 @@ class AppFixtures extends Fixture
             $manager->persist($taskadmindone);
         }
 
+        for ($i = 20; $i < 25; ++$i) {
+            $taskauthornull = new Task();
+            $taskauthornull->setTitle('Tâche '.$i);
+            $taskauthornull->setContent('Contenu de la tâche '.$i);
+            $taskauthornull->setIsDone(true);
+            $taskauthornull->setCreatedAt(new DateTime());
+            $taskauthornull->setAuthor(null);
+            $manager->persist($taskauthornull);
+        }
+
         $manager->flush();
     }
 }
