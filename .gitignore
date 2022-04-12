@@ -9,6 +9,7 @@
 /vendor/
 .env
 .env.test
+TIPS.md
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

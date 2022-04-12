@@ -62,9 +62,7 @@ class UserController extends AbstractController
     public function edit(User $user, Request $request, UserPasswordHasherInterface $passwordHasher)
     {
         $form = $this->createForm(UserType::class, $user);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() &&
             $form->isValid()) {
             $password = $form->get('password')->getData();
@@ -82,5 +80,6 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+
     }
 }
