@@ -78,4 +78,14 @@ class TaskControllerTest extends WebTestCase
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("La tâche a été bien été ajoutée")')->count());
     }
+
+    public function testUserCantDeleteOtherUserTask()
+    {
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('test@local.com');
+        $client->loginUser($testUser);
+        $client->request('GET', '/tasks/10/delete');
+        $this->assertSame(403, $client->getResponse()->getStatusCode());
+    }
 }
