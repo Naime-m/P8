@@ -38,6 +38,15 @@ class AppFixtures extends Fixture
 
         $manager->persist($admin);
 
+        $usertest = new User();
+        $usertest->setUsername('testuser');
+        $password = $this->hasher->hashPassword($usertest, 'pass');
+        $usertest->setPassword($password);
+        $usertest->setEmail('testuser@local.com');
+        $usertest->setRole('ROLE_USER');
+
+        $manager->persist($usertest);
+
         for ($i = 1; $i < 5; ++$i) {
             $task = new Task();
             $task->setTitle('Tâche '.$i);
