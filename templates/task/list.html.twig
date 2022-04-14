@@ -29,17 +29,13 @@
 								{% endif %}
 							</button>
 						</form>
-						{% if task.author.id is defined %}
-							{% if app.user.id == task.author.id %}
-								<form action="{{ path('task_delete', {'id' : task.id }) }}">
-									<button class="btn btn-danger btn-sm pull-right">Supprimer</button>
-								{% endif %}
-							{% endif %}
+						{% if is_granted('delete',task)%}
+						
+							<form action="{{ path('task_delete', {'id' : task.id }) }}">
+							<button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+			
+						{% endif %}
 
-							{% if task.author.id is not defined and app.user.role == 'ROLE_ADMIN'%}
-								<form action="{{ path('task_delete', {'id' : task.id }) }}">
-									<button class="btn btn-danger btn-sm pull-right">Supprimer</button>
-								{% endif %}
 							</form>
 						</div>
 					</div>
