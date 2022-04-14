@@ -88,13 +88,8 @@ class TaskController extends AbstractController
      */
     public function deleteTask(Task $task, ManagerRegistry $doctrine)
     {
-        $isAdmin = $this->isGranted('ROLE_ADMIN');
-        $isAuthor = $this->getUser() == $task->getAuthor();
-        $noAuthor = null === $task->getAuthor();
 
-        if (!($isAdmin && $noAuthor || $isAuthor)) {
-            throw $this->createAccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted('delete', $task);
 
         $em = $doctrine->getManager();
         $em->remove($task);
