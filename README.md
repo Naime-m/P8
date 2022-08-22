@@ -4,10 +4,10 @@ Huitième projet dans le cadre de ma formation développeur PHP Symfony chez Ope
 
 Application de todolist pour laquelle il a fallu effectuer :
 
-Corrections d'anomalies
-Gestion des rôles et tâches
-Audit de qualité du code & performance de l'application avec Blackfire
-Mise en place de tests unitiaires et fonctionnels
+- Corrections d'anomalies
+- Gestion des rôles et tâches
+- Audit de qualité du code & performance de l'application avec Blackfire
+- Mise en place de tests unitiaires et fonctionnels
 
 Pour installer le projet il faudra :
 
